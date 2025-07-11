@@ -65,3 +65,38 @@
         sudo ./bin/kafka-server-start.sh ./config/kraft/server.properties
     ```
 
+<br>
+
+# `#04 kafka with producer and consumer:`
+<br>
+
+```css
++-----------+       +-----------+       +-----------+
+|           |       |  Broker   |       |           |
+| Producer  | ----> | test-topic| ----> | Consumer  |
+|           |       |           |       |           |
++-----------+       +-----------+       +-----------+
+```              
+
+- Start the server (prefer: with kraft)
+
+- Create a topic
+    - "--topic" Topic name for this example: "test-topic"
+    - "--bootstrap-server" kraft/zokeeper server running on our computer.
+    - "--partitions" and "--replication-factor" see the basic note.
+    ```bash
+        sudo bin/kafka-topics.sh --create --topic TOPIC_NAME --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+    ```
+    output: **Created topic test-topic.**
+
+- Producer, (Testing purpouse we have producer script file)
+    -- "--topic" topic name, previously we create **test-topics**
+    ```bash
+    sudo ./bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test-topic
+    ```
+- Consumer, (Simillary, we have also consumer-script)
+    - "--from-beginning" if we don't create our cusumer but producer have already broadcast message to get all the message from beginning.
+    ```bash
+         sudo ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --from-beginning
+    ```
+
