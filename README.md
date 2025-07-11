@@ -215,4 +215,23 @@
     sudo ./bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group og --describe
     ```
 
+<br>
 
+# `#05 kafka UI Dashboard:`
+<br>
+
+`Web-based open-source tool that provides an easy-to-use interface for monitoring, managing and interacting with Apache kafka clusters including topics, partitions consumer groups and messages.`
+
+- Edit kraft/server.properties
+    - advertised.listeners=PLAINTEXT://<IP>:9092,CONTROLLER://localhost:9093
+        - We need to change the localhost
+            - Linux: ifconfig
+    - Restart kafka
+
+- **Docker Command:**
+    ```bash
+        docker pull provectuslabs/kafka-ui
+    ```
+    ```bash
+    docker run --rm -d -p 8080:8080 -e KAFKA_CLUSTERS_O_NAME=my-cluster -e KAFKA_CLUSTERS_O_BOOTSTRAPSERVERS=192.168.0.117:9092 --name kafkaui provectuslabs/kafka-ui 
+    ```
